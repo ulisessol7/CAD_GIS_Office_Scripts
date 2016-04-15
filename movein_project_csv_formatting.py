@@ -1,4 +1,12 @@
 # -*- coding: utf-8 -*-
+"""
+movein_project_csv_formatting.py:
+--------------------------------------------------------------------------------
+This scripts translates the traffic volume counts, collected by CUPD & Parking
+and Transportation Services, from excel files into feature classes. The
+resulting feature classes will be stored in the provided PARK_MI.gdb
+--------------------------------------------------------------------------------
+"""
 from __future__ import print_function
 import os
 import glob
@@ -11,19 +19,9 @@ env.overwriteOutput = True
 env.qualifiedFieldNames = "UNQUALIFIED"
 
 __author__ = 'Ulises  Guzman'
-__date__ = '03/28/2016'
+__date__ = '02/25/2016'
 __credits__ = 'CAD/GIS Office at CU Boulder'
-'''
-********************************************************************************
-author: Ulises Guzman
-Date: 2/25/2016
-DESCRIPTION:
-This scripts translates the traffic volume counts, collected by CUPD & Parking
-and Transportation Services, from excel files into feature classes. The
-resulting feature classes will be stored in the provided PARK_MI.gdb
 
-*******************************************************************************
-'''
 """this dictionary was created manually due to data constraints.The name of
 the keys have to exactly matched the excel volume data filename,
 i.e 'j-100-15 Colorado - Folsom VOL.xls'. The spatial reference system is our
