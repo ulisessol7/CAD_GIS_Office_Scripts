@@ -1,2 +1,2 @@
-# CAD_GIS_Office_Scritps
+# CAD_GIS_Office_Scripts
 This repository...
