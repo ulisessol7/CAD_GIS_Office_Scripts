@@ -16,6 +16,7 @@ import time
 
 __author__ = 'Ulises  Guzman'
 __date__ = '03/28/2016'
+__credits__ = 'CAD/GIS Office at CU Boulder'
 
 
 def simple_path_retriever(vpath):
