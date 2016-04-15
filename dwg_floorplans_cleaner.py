@@ -46,6 +46,13 @@ def dwgs_cleaner(folderpath):
     for the whole drawing (including layouts) and finally save the drawing with
     appropiate extents. In some cases when the function is completed an
     Autodesk error appears on screen, if this happens, just ignore it.
+    Args:
+    folderpath (string) = A string representation of a location on disk.
+    Returns:
+    cleaned dwgs
+    Examples:
+    >>> dwgs_cleaner(folder)
+    'All drawings have been standardized!'
     """
     os.chdir(folderpath)
     dwg_list = glob.glob('*.dwg')
