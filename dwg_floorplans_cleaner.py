@@ -1,20 +1,23 @@
 # -*- coding: utf-8 -*-
 """
-dwg_floorplans_cleaner.py:
+Name:       dwg_floorplans_cleaner.py
+Author:     Ulises  Guzman
+Created:    04/08/2016
+Copyright:   (c) CAD/GIS Office at CU Boulder
+ArcGIS Version:   NA
+AutoCAD Version:  20.1
+Python Version:   2.7.8
 --------------------------------------------------------------------------------
 This script was developed to automate part of the CAD/GIS Office at CU Boulder
 CAD standardization process. The office's current CAD standards can be found at
 http://www.colorado.edu/fm/planning-design-construction/cad-document-management
 --------------------------------------------------------------------------------
 """
+
 from __future__ import print_function
 import os
 import glob
 from win32com import client
-
-__author__ = 'Ulises  Guzman'
-__date__ = '04/08/2016'
-__credits__ = 'CAD/GIS Office at CU Boulder'
 
 
 def simple_path_retriever(vpath):
@@ -89,14 +92,10 @@ def dwgs_cleaner(folderpath):
     print('All drawings have been standardized!')
     return
 
-
-def main():
+if __name__ == "__main__":
     print("""Relax while I take care of the boring stuff
 Regards,
 J.""")
     folder = simple_path_retriever(
         'Please tell me where can I find your dwgs <path>?: ')
     dwgs_cleaner(folder)
-
-if __name__ == "__main__":
-    main()

@@ -1,6 +1,12 @@
 # -*- coding: utf-8 -*-
 """
-gis_project_folder_structure.py:
+Name:       gis_project_folder_structure.py
+Author:     Ulises  Guzman
+Created:    03/28/2016
+Copyright:   (c) CAD/GIS Office at CU Boulder
+ArcGIS Version:   NA
+AutoCAD Version:  NA
+Python Version:   2.7.8
 --------------------------------------------------------------------------------
 This script creates the standard folder structure for the CAD/GIS Office at
 CU Boulder GIS projects, it creates 10 empty folders and 1 logbook text file.
@@ -9,14 +15,10 @@ extensions. The script only requires a standard python installation, no special
 dependencies are required.
 --------------------------------------------------------------------------------
 """
+
 from __future__ import print_function
 import os
 import time
-
-
-__author__ = 'Ulises  Guzman'
-__date__ = '03/28/2016'
-__credits__ = 'CAD/GIS Office at CU Boulder'
 
 
 def simple_path_retriever(vpath):
@@ -81,14 +83,10 @@ def gis_folder_structure(folderpath):
     print('The folder structure for you GIS project is ready!')
 
 
-def main():
+if __name__ == "__main__":
     print("""Hello, this will not take long
 Regards,
 J.""")
     folder = simple_path_retriever('Where would you like me to create'
                                    ' your GIS project structure<path>?: ')
     gis_folder_structure(folder)
-
-
-if __name__ == "__main__":
-    main()

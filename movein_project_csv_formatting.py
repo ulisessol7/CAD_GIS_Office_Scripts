@@ -1,12 +1,19 @@
 # -*- coding: utf-8 -*-
 """
-movein_project_csv_formatting.py:
+Name:       movein_project_csv_formatting.py
+Author:     Ulises  Guzman
+Created:    02/25/2016
+Copyright:   (c) CAD/GIS Office at CU Boulder
+ArcGIS Version:   10.3.1
+AutoCAD Version:  NA
+Python Version:   2.7.8
 --------------------------------------------------------------------------------
-This scripts translates the traffic volume counts, collected by CUPD & Parking
+This script translates the traffic volume counts, collected by CUPD & Parking
 and Transportation Services, from excel files into feature classes. The
 resulting feature classes will be stored in the provided PARK_MI.gdb
 --------------------------------------------------------------------------------
 """
+
 from __future__ import print_function
 import os
 import glob
@@ -18,9 +25,6 @@ from arcpy import env
 env.overwriteOutput = True
 env.qualifiedFieldNames = "UNQUALIFIED"
 
-__author__ = 'Ulises  Guzman'
-__date__ = '02/25/2016'
-__credits__ = 'CAD/GIS Office at CU Boulder'
 
 """this dictionary was created manually due to data constraints.The name of
 the keys have to exactly matched the excel volume data filename,
@@ -165,11 +169,8 @@ def movein_dataparser():
         print('%s feature class was successfully created' % fc_name)
 
 
-def main():
+if __name__ == "__main__":
     print("""Hello, I will parse the data for you
 Regards,
 J.""")
     movein_dataparser()
-
-if __name__ == "__main__":
-    main()
