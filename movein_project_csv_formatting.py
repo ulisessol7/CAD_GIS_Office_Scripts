@@ -15,7 +15,6 @@ resulting feature classes will be stored in the provided PARK_MI.gdb
 """
 
 from __future__ import print_function
-# this is only a test
 import os
 import glob
 import pandas as pd
