@@ -16,12 +16,13 @@ from __future__ import print_function
 import os
 from subprocess import call
 import glob
-# import re
+import re
 import inspect
 import StringIO
 import pandas as pd
 from sqlalchemy import create_engine
 from sqlalchemy.sql import text
+import arcpy
 
 
 def path_retriever(ws):
@@ -76,8 +77,9 @@ def employees_to_postgresql(db, user, password, workspace=os.getcwd()):
             normalize_addr = '{}, {} {} {}'.format(
                 street, city, state, zipcode)
             df.loc[index, 'normalize_addr'] = normalize_addr
-        except Exception:
+        except Exception as e:
             print(street, city, state, zipcode)
+            print(e)
             """authenticating to the PostgreSQL db by using a URI
     (Uniform Resource Identifier). This is done to avoid the password
     prompt in the cmd window.
@@ -88,7 +90,7 @@ def employees_to_postgresql(db, user, password, workspace=os.getcwd()):
     # removing file extension
     table_name = excel_file[:-5]
     # writing pandas dataframe to PostgreSQL table
-    df.to_sql(name=table_name, con=engine)
+    df.to_sql(name=table_name, con=engine, if_exists='replace')
     os.chdir(original_workspace)
     return
 
@@ -139,6 +141,8 @@ def run_sql_on_db(db, user, password, sql_script_loc=os.getcwd()):
     """authenticating to the PostgreSQL db by using a URI
     (Uniform Resource Identifier).
     """
+    # getting the name of the function programatically.
+    print('Executing {}... '.format(inspect.currentframe().f_code.co_name))
     target_db = 'postgresql://{}:{}@localhost/{}'.format(
         user, password, db)
     engine = create_engine(target_db)
@@ -153,7 +157,7 @@ def run_sql_on_db(db, user, password, sql_script_loc=os.getcwd()):
     sql_commands = sql_commands.split(';')
     with engine.connect() as con:
         for command in sql_commands:
-            if command != '':
+            if command not in ('', '\n'):
                 try:
                     con.execute(text(command))
                     print('{} was successfully executed'.format(command))
@@ -162,17 +166,66 @@ def run_sql_on_db(db, user, password, sql_script_loc=os.getcwd()):
     return
 
 
+def rename_layers_in_mxd(mxd_loc, pattern, ind_result=-1):
+    """
+    ...
+    """
+    # getting the name of the function programatically.
+    print('Executing {}... '.format(inspect.currentframe().f_code.co_name))
+    mxd = arcpy.mapping.MapDocument(mxd_loc)
+    lyrs = arcpy.mapping.ListLayers(mxd)
+    for lyr in lyrs:
+        lyr.name = re.split(pattern, lyr.name)[ind_result]
+        print(lyr.name)
+    mxd.save()
+    return
+
+
+def apply_symbology_to_lyr(mxd_loc, lyrs_loc):
+    """
+    ...
+    """
+    # getting the name of the function programatically.
+    print('Executing {}... '.format(inspect.currentframe().f_code.co_name))
+    original_workspace = os.getcwd()
+    os.chdir(lyrs_loc)
+    lyrs_symb = glob.glob('*.lyr')
+    # print(lyrs_symb)
+    os.chdir(original_workspace)
+    mxd = arcpy.mapping.MapDocument(mxd_loc)
+    lyrs = arcpy.mapping.ListLayers(mxd)
+    for lyr in lyrs:
+        if lyr.name + '.lyr' in lyrs_symb:
+            try:
+                arcpy.ApplySymbologyFromLayer_management(
+                    lyr, lyrs_loc + '/' + lyr.name + '.lyr')
+            except Exception as e:
+                print(e)
+    mxd.save()
+    return
+
+
 if __name__ == '__main__':
     # ws = path_retriever('cu_employees_data')
     # user = raw_input()
     # password = raw_input()
-    db = 'postgres'
+    db = 'postgis_22_sample'
     user = 'postgres'
     password = 'CAD123456'
-    # ws = 'E:/Users/ulgu3559/Desktop/cu_employees_data'
-    # employees_to_postgresql('postgres', 'postgres', 'CAD123456', ws)
-    # shp_loc = 'E:\Users\ulgu3559\Desktop\GIS_projects\CU_ED_SHP'
-    # load_shps_to_postgresql(db, user, password, shp_loc=shp_loc)
+    ws = 'E:/Users/ulgu3559/Desktop/cu_employees_data'
+    employees_to_postgresql(db, user, password, ws)
+    shp_loc = 'E:\Users\ulgu3559\Desktop\GIS_projects\CU_ED_SHP'
+    load_shps_to_postgresql(db, user, password, shp_loc=shp_loc)
     ed_format = 'E:\Users\ulgu3559\Desktop\GIS_projects\CU_ED_SQL' \
-        '\dummy.sql'
+        '\cu_employees_data_formatting.sql'
+    # running tiger geocoder
     run_sql_on_db(db, user, password, sql_script_loc=ed_format)
+    ed_map_lyr = 'E:\Users\ulgu3559\Desktop\GIS_projects\CU_ED_SQL' \
+        '\cu_ed_map_layers.sql'
+    # running buffers
+    run_sql_on_db(db, user, password, sql_script_loc=ed_map_lyr)
+    mxd_loc = r'E:/Users/ulgu3559/Desktop/GIS_projects/CU_ED_MXD/' \
+        'sustainable_transportation_webmap.mxd'
+    # rename_layers_in_mxd(mxd_loc, '\.')
+    # lyrs_loc = 'E:/Users/ulgu3559/Desktop/GIS_projects/CU_ED_LYR'
+    # apply_symbology_to_lyr(mxd_loc, lyrs_loc)
