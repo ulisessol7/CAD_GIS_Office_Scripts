@@ -157,7 +157,7 @@ def run_sql_on_db(db, user, password, sql_script_loc=os.getcwd()):
     sql_commands = sql_commands.split(';')
     with engine.connect() as con:
         for command in sql_commands:
-            if command not in ('', '\n'):
+            if command not in ('', '\n', '\n\n'):
                 try:
                     con.execute(text(command))
                     print('{} was successfully executed'.format(command))
@@ -224,7 +224,7 @@ if __name__ == '__main__':
         '\cu_ed_map_layers.sql'
     # running buffers
     run_sql_on_db(db, user, password, sql_script_loc=ed_map_lyr)
-    mxd_loc = r'E:/Users/ulgu3559/Desktop/GIS_projects/CU_ED_MXD/' \
+    mxd_loc = 'E:/Users/ulgu3559/Desktop/GIS_projects/CU_ED_MXD/' \
         'sustainable_transportation_webmap.mxd'
     # rename_layers_in_mxd(mxd_loc, '\.')
     # lyrs_loc = 'E:/Users/ulgu3559/Desktop/GIS_projects/CU_ED_LYR'
