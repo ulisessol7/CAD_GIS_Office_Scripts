@@ -40,6 +40,9 @@ def path_retriever(ws):
     >>> path_retriever('Guzman_lab3')
     Please enter a valid path for Guzman_lab3:
     """
+    # getting the name of the function programatically.
+    func_name = inspect.currentframe().f_code.co_name
+    print('Executing {}... '.format(func_name))
     path = raw_input('Please enter a valid path for'
                      ' %s : ' % ws)
     # checking if the information provided by the user is a valid path
@@ -52,6 +55,9 @@ def employees_to_postgresql(db, user, password, workspace=os.getcwd()):
     """
     ...
     """
+    # getting the name of the function programatically.
+    func_name = inspect.currentframe().f_code.co_name
+    print('Executing {}... '.format(func_name))
     original_workspace = os.getcwd()
     os.chdir(workspace)
     # grabbing the latest excel file in directory, in certain os max
@@ -103,7 +109,8 @@ def load_shps_to_postgresql(db, user, password,
     ...
     """
     # getting the name of the function programatically.
-    print('Executing {}... '.format(inspect.currentframe().f_code.co_name))
+    func_name = inspect.currentframe().f_code.co_name
+    print('Executing {}... '.format(func_name))
     os.chdir(shp_loc)
     shp_list = glob.glob('*.shp')
     shp2pgsql = "C:\Program Files\PostgreSQL\{0}\\bin\shp2pgsql.exe".format(
@@ -142,7 +149,8 @@ def run_sql_on_db(db, user, password, sql_script_loc=os.getcwd()):
     (Uniform Resource Identifier).
     """
     # getting the name of the function programatically.
-    print('Executing {}... '.format(inspect.currentframe().f_code.co_name))
+    func_name = inspect.currentframe().f_code.co_name
+    print('Executing {}... '.format(func_name))
     target_db = 'postgresql://{}:{}@localhost/{}'.format(
         user, password, db)
     engine = create_engine(target_db)
@@ -167,11 +175,19 @@ def run_sql_on_db(db, user, password, sql_script_loc=os.getcwd()):
 
 
 def rename_layers_in_mxd(mxd_loc, pattern, ind_result=-1):
-    """
-    ...
+    """[summary]
+
+    [description]
+    :param mxd_loc: [description]
+    :type mxd_loc: [type]
+    :param pattern: [description]
+    :type pattern: [type]
+    :param ind_result: [description], defaults to -1
+    :type ind_result: number, optional
     """
     # getting the name of the function programatically.
-    print('Executing {}... '.format(inspect.currentframe().f_code.co_name))
+    func_name = inspect.currentframe().f_code.co_name
+    print('Executing {}... '.format(func_name))
     mxd = arcpy.mapping.MapDocument(mxd_loc)
     lyrs = arcpy.mapping.ListLayers(mxd)
     for lyr in lyrs:
@@ -186,7 +202,8 @@ def apply_symbology_to_lyr(mxd_loc, lyrs_loc):
     ...
     """
     # getting the name of the function programatically.
-    print('Executing {}... '.format(inspect.currentframe().f_code.co_name))
+    func_name = inspect.currentframe().f_code.co_name
+    print('Executing {}... '.format(func_name))
     original_workspace = os.getcwd()
     os.chdir(lyrs_loc)
     lyrs_symb = glob.glob('*.lyr')
