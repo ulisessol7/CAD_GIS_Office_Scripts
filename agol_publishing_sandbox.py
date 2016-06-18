@@ -4,7 +4,7 @@ import inspect
 import os
 import xml.dom.minidom as DOM
 
-
+# agol test env
 def agol_login(user, password, portal=''):
     """
     ...
