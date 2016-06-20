@@ -5,6 +5,8 @@ import os
 import xml.dom.minidom as DOM
 
 # agol test env
+
+
 def agol_login(user, password, portal=''):
     """
     ...
@@ -44,6 +46,7 @@ def mxd_properties_collector(mxd_loc, prop='title'):
 
 
 def mxd_properties_writer(mxd_loc, prop='title'):
+    """
     # getting the name of the function programatically.
     func_name = inspect.currentframe().f_code.co_name
     print('Executing {}... '.format(func_name))
