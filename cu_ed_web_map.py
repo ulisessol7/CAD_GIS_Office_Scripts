@@ -2,7 +2,7 @@
 """
 Name:       cu_ed_web_map.py
 Author:     Ulises  Guzman
-Created:    06/18/2016
+Created:    06/20/2016
 Copyright:   (c) CU Boulder GIS Office
 ArcGIS Version:   10.4
 Python Version:   2.7.8
